@@ -1,0 +1,52 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header">Movie</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Edition des films</h5>
+                    <p class="card-text">du texte kil est bô</p>
+                    <a href="{{ path('app_backoffice_movie_index')}}" class="btn btn-primary">Afficher la liste</a>
+                    <a href="{{ path('app_backoffice_movie_new')}}" class="btn btn-success">Création de film</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header">Season</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Edition des Saisons</h5>
+                    <p class="card-text">du texte kil est bô</p>
+                    <a href="{{ path('app_backoffice_season_index')}}" class="btn btn-primary">Afficher la liste</a>
+                    <a href="{{ path('app_backoffice_season_new')}}" class="btn btn-success">Création de Saison</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header">Genre</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Edition des genres de film</h5>
+                    <p class="card-text">du texte kil est bô</p>
+                    <a href="{{ path('app_backoffice_genre_index')}}" class="btn btn-primary">Afficher la liste</a>
+                    <a href="{{ path('app_backoffice_genre_new')}}" class="btn btn-success">Création de Genre de film</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header">Casting</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Edition des Castings de film</h5>
+                    <p class="card-text">du texte kil est bô</p>
+                    <a href="{{ path('app_backoffice_casting_index')}}" class="btn btn-primary">Afficher la liste</a>
+                    <a href="{{ path('app_backoffice_casting_new')}}" class="btn btn-success">Création de Casting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ movieDetail.title }} - O'Flix{% endblock %}
+
+{% block body %} 
+    <!-- main -->
+    
+    <div class="container bg-lighttt pt-5">
+
+        <div class="row mb-2">
+
+            <div class="col">
+
+                <div
+                    class="row g-0 borderrr rrrounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
+                    <div class="col-4 movie__poster img-thumbnail"
+                        style="background-image: url({{ asset('' ~ movieDetail.poster ~ '') }});">
+                        <img src="{{asset('images/poster-placeholder.png')}}" class="img-fluid">
+                        <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
+                    </div>
+
+                    <div class="col-8 p-4 d-flex flex-column position-static bg-light">
+                        <a href="#" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <strong class="d-inline-block mb-2 text-primary">{{ movieDetail.type }}</strong>
+                        <h3 class="mb-1">{{ movieDetail.title }}</h3>
+                        <div class="mb-1 text-muted">{{ movieDetail.duration }} min</div>
+                        <p>
+                        {% for genre in movieDetail.genres %}
+                            <span class="badge bg-warning text-dark">{{ genre.title }}</span>
+                        {% endfor %}
+                        </p>
+                        <p>{{ movieDetail.synopsys }}</p>
+                        <div class="d-flex mb-4" style="color: orange;">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <span class="ps-1">{{ movieDetail.rating }}</span>
+                        </div>
+
+                        <h2>3 Saisons</h2>
+                        <ul class="list-unstyled">
+                        {% dump movieDetail %}
+                        {#
+                          -seasons: Doctrine\ORM\PersistentCollection {#515 ▼
+                                #collection: Doctrine\Common\Collections\ArrayCollection {#514 ▼
+                                -elements: []
+                                }
+                                #initialized: false
+                        #}
+                        {% for season in movieDetail.seasons %}
+                            <li>
+                                <span class="badge bg-danger fs-6 mb-2">{{ season.name }}</span>
+                                <small class="ms-1">({{ season.numberEpisode }} épisodes)</small>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        {# 
+                        du fait que l'on ai exécuté du code qui parle de propriété season (ligne 45)
+                        notre propriété season est initialized = true
+                         #}
+                        
+                        <dl class="row">
+                            <dt class="col-sm-12">Avec</dt>
+                            <dd class="col-sm-12">
+                            {# 
+                            https://twig.symfony.com/doc/2.x/filters/sort.html 
+                            {% for casting in movieDetail.castings|sort((a, z) => a.creditOrder <=> z.creditOrder) %}
+                            #}
+                            {% for casting in castings %}
+                                {{ casting.person.firstname }} {{ casting.person.lastname }} ({{ casting.role }}:{{ casting.creditOrder }})<br>
+                            {% endfor %}
+                            </dd>
+                            {% dump movieDetail %}
+                            <dt class="col-sm-12">Pays</dt>
+                            <dd class="col-sm-12">{{ movieDetail.country }}</dd>
+                            <dt class="col-sm-12">Année</dt>
+                            <dd class="col-sm-12">{{ movieDetail.releaseDate|date("Y") }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-12">Avec</dt>
+                                {% for review in reviews %}
+                                    {{ review.username }} : {{ review.rating }}⭐
+                                    <p>
+                                        {{ review.content }}    
+                                    </p>
+                                {% endfor %}
+                                <dd class="col-sm-12">
+
+                                </dd>
+                        </dl>
+                        <div class="col">
+                            <a href="{{ path('review_add', {'movieId':movieDetail.id}) }}" class="btn btn-info">Ajouter une critique</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %} 

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Review : {{ movie.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Ajouter une critique sur le film {{movie.title}}</h2>
+        {# https://symfony.com/doc/current/form/form_customization.html#reference-form-twig-functions #}
+        {{ form_start(formulaire) }}
+            {{ form_row(formulaire.username) }}
+            {{ form_row(formulaire.email) }}
+            {{ form_row(formulaire.content) }}
+            {{ form_row(formulaire.rating) }}
+            {{ form_row(formulaire.watchedAt) }}
+            <button type="submit" class="btn btn-success">Ajouter la critique</button>
+        {{ form_end(formulaire) }}
+    </div>
+{% endblock %}

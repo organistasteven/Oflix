@@ -1,0 +1,13 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}Edit Movie{% endblock %}
+
+{% block body %}
+    <h1>Edit Movie</h1>
+
+    {{ include('backoffice/movie/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {{ include ('backoffice/links/back_to_list.html.twig', { 'custom_path' : path('app_backoffice_movie_index')})}}
+    
+    {{ include('backoffice/movie/_delete_form.html.twig') }}
+{% endblock %}

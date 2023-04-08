@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Season{% endblock %}
+
+{% block body %}
+    <h1>Create new Season</h1>
+
+    {{ include('backoffice/season/_form.html.twig') }}
+
+    {{ include ('backoffice/links/back_to_list.html.twig', { 'custom_path' : path('app_backoffice_season_index')})}}
+
+{% endblock %}

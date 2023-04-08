@@ -1,0 +1,11 @@
+genre: code_genre, title
+play, 0N movie, 0N actor: role
+actor: code_actor, firstname, lastname
+
+classed, 1N movie, 0N genre
+movie: code_movie, title, duration, summary, synopsis, rating, image, country, year, type
+:
+
+:
+belongs to, 0N movie, 01 season
+season: code_season, name, number_episode

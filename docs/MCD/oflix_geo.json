@@ -1,0 +1,31 @@
+{
+  "width": 346,
+  "height": 432,
+  "cx": [
+    [ "genre", 50 ],
+    [ "play", 154 ],
+    [ "actor", 281 ],
+    [ "classed", 50 ],
+    [ "movie", 154 ],
+    [ "belongs to", 154 ],
+    [ "season", 281 ]
+  ],
+  "cy": [
+    [ "genre", 51 ],
+    [ "play", 51 ],
+    [ "actor", 51 ],
+    [ "classed", 212 ],
+    [ "movie", 212 ],
+    [ "belongs to", 381 ],
+    [ "season", 381 ]
+  ],
+  "shift": [
+    [ "play,movie,0", 0 ],
+    [ "play,actor,0", 0 ],
+    [ "classed,movie,0", 0 ],
+    [ "classed,genre,0", 0 ],
+    [ "belongs to,movie,0", 0 ],
+    [ "belongs to,season,0", 0 ]
+  ],
+  "ratio": []
+}
