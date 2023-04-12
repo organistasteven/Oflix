@@ -12,6 +12,7 @@ security:
                 property: email
     firewalls:
 
+        # connexion en JSON avec LexikJWT
         login:
             pattern: ^/api/login
             stateless: true
@@ -38,8 +39,19 @@ security:
             # https://symfony.com/doc/current/security.html#the-firewall
             form_login:
                 # "app_login" is the name of the route created previously
+                # GET route
                 login_path: app_login
+                # POST route
                 check_path: app_login
+            
+            # https://symfony.com/doc/5.4/security.html#logging-out
+            logout:
+                # nom de la route qui va déclencher la déconnexion
+                # que le composant de sécurité prend en charge
+                path: app_logout
+                # redirection après logout (par défaut on retourne sur /)
+                # https://symfony.com/doc/current/reference/configuration/security.html#target
+                target: /login
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
@@ -47,8 +59,49 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+
+        # routes de l'API
+        # create movie
+        - { path: ^/api/movies, roles: ROLE_ADMIN, methods: POST }
+        # update movie
+        - { path: ^/api/movies/\d+, roles: ROLE_ADMIN, methods: PATCH }
+
+        # on restreint les accès front
+
+        #   review_add                      GET|POST   ANY      ANY    /review/add/{movieId}              
+        #   favoris                         ANY        ANY      ANY    /favoris                           
+
+        - { path: ^/review/add/\d+, roles: ROLE_USER, methods: [GET, POST] }
+        - { path: ^/favoris, roles: ROLE_USER, methods: GET }
+
+        # on restreint les accès admin
+
+        # on fait un console debug:router pour identifier les chemins à protéger
+        #   app_backoffice_casting_index    GET        ANY      ANY    /backoffice/casting/               
+        #   app_backoffice_casting_new      GET|POST   ANY      ANY    /backoffice/casting/new            
+        #   app_backoffice_casting_show     GET        ANY      ANY    /backoffice/casting/{id}           
+        #   app_backoffice_casting_edit     GET|POST   ANY      ANY    /backoffice/casting/{id}/edit      
+        #   app_backoffice_casting_delete   POST       ANY      ANY    /backoffice/casting/{id}           
+
+        # new
+        - { path: ^/backoffice/(casting|genre|movie|season|user)/new, roles: ROLE_ADMIN, methods: [GET, POST] }
+        # edit
+        - { path: ^/backoffice/(casting|genre|movie|season|user)/\d+/edit, roles: ROLE_ADMIN, methods: [GET, POST] }
+        # delete => ici la méthode POST est vraiment nécessaire, car en GET cela correspond à l'action "show" valide pour ROLE_MANAGER
+        - { path: ^/backoffice/(casting|genre|movie|season|user)/\d+, roles: ROLE_ADMIN, methods: POST }
+        # le manager est le rôle minimum pour rentrer sur le back-office
+        - { path: ^/backoffice, roles: ROLE_MANAGER }
+
+    # si on souhaite que chaque rôle hérite des permissions du précédent
+    # => parce que notre projet s'y prête (PARCE QUE C'EST NOTRE PROJEEEEEEEEEET !)
+    role_hierarchy:
+        # le manager a les mêmes permissions que le simple utilisateur
+        ROLE_MANAGER: ROLE_USER
+        # l'admin hérite des permissions du manager (et en cascade, du simple utilisateur)
+        ROLE_ADMIN: ROLE_MANAGER
+
+
+
 
 when@test:
     security:
